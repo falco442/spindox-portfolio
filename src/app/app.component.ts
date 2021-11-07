@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {User} from "../models/user";
 import {UserResponse} from "../models/user-response";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,8 @@ import {UserResponse} from "../models/user-response";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'spindox-portfolio';
+  title: string;
+  subtitle: string | Date;
 
   public user: User;
 
@@ -26,5 +28,15 @@ export class AppComponent implements OnInit {
         },
         (err: HttpErrorResponse) => console.error(err)
       );
+  }
+
+  set(title: string, subtitle: string | Date) {
+    this.title = title;
+    const date = moment(subtitle);
+    if (date.isValid()) {
+      this.subtitle = date.format('DD/MM/YYYY');
+    } else {
+      this.subtitle = subtitle;
+    }
   }
 }
