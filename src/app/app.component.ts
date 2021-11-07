@@ -11,7 +11,7 @@ import {UserResponse} from "../models/user-response";
 export class AppComponent implements OnInit {
   title = 'spindox-portfolio';
 
-  user: User;
+  public user: User;
 
   constructor(private http: HttpClient) {
   }
@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
       .subscribe(
         (data: UserResponse) => {
           if (data && data.results && data.results.length) {
-            // this.user = data.results[0];
+            this.user = data.results[0];
           }
         },
         (err: HttpErrorResponse) => console.error(err)
